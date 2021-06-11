@@ -1,31 +1,31 @@
 import Link from "next/link";
-import Card from '../components/Card';
+import Card from "../components/Card";
 
-export default function Home({ pokemons }) {
+function PokemonServer({ pokemons }) {
   return (
     <div
       className="
-      flex justify-center flex-col items-center w-full
-      md:grid md:grid-cols-2 md:gap-8 md:justify-items-center
-      lg:grid-cols-3"
+          flex justify-center flex-col items-center w-full
+          md:grid md:grid-cols-2 md:gap-8 md:justify-items-center
+          lg:grid-cols-3"
     >
       {pokemons.map((pokemon, index) => {
         return (
           <Card
             key={index}
             className="
-              p-4 
-              xl:w-5/6"
+                  p-4 
+                  xl:w-5/6"
           >
             <Link href={`/pokemon/${pokemon.name}`}>
               <a
                 className="
-                  flex flex-col items-start justify-center cursor-pointer"
+                      flex flex-col items-start justify-center cursor-pointer"
               >
                 <div
                   className="
-                  self-center w-5/6 h-full
-                  lg:w-auto"
+                      self-center w-5/6 h-full
+                      lg:w-auto"
                 >
                   <img src={pokemon.image} alt={pokemon.name} />
                 </div>
@@ -42,7 +42,9 @@ export default function Home({ pokemons }) {
   );
 }
 
-export async function getStaticProps(context) {
+export default PokemonServer;
+
+export async function getServerSideProps(context) {
   const url = "https://pokeapi.co/api/v2/pokemon?limit=20";
   const res = await fetch(url);
   const { results } = await res.json();
